@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by miguelmorales on 17/4/15.
- */
+
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Fm_Inicio extends Fragment {
 
