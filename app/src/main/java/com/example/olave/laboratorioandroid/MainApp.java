@@ -88,7 +88,6 @@ public class MainApp extends ActionBarActivity {
             public void onDrawerClosed(View view) {
 
                 getSupportActionBar().setTitle(mDrawerTitle);
-                //getSupportActionBar().setSubtitle(mTitle);
                 invalidateOptionsMenu();
             }
 
@@ -105,30 +104,7 @@ public class MainApp extends ActionBarActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);//Mostrar icono menu animado
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerExpandableList.setTextFilterEnabled(true);
-       /* mDrawerExpandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                int grup_pos = (int)adapter.getGroupId(groupPosition);
-                if(grup_pos == 0) {
-                    Toast.makeText(getApplicationContext(), "Grupo 1", Toast.LENGTH_SHORT).show();
-                    mDrawerTitle = "Grupo 1";
-                }
-                if(grup_pos == 1) {
-                    Toast.makeText(getApplicationContext(), "Grupo 2", Toast.LENGTH_SHORT).show();
-                    mDrawerTitle = "Grupo 2";
-                }
-                if(grup_pos == 2) {
-                    Toast.makeText(getApplicationContext(), "Grupo 3", Toast.LENGTH_SHORT).show();
-                    mDrawerTitle = "Grupo 3";
-                }
-                if(grup_pos == 3) {
-                    Toast.makeText(getApplicationContext(), "Grupo 4", Toast.LENGTH_SHORT).show();
-                    mDrawerTitle = "Grupo 4";
-                }
-                mDrawerLayout.closeDrawer(mDrawerExpandableList);
-                return false;
-            }
-        });*/
+
         mDrawerExpandableList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -156,17 +132,17 @@ public class MainApp extends ActionBarActivity {
                         case 0:
                             Toast.makeText(getApplicationContext(), "Socios", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Socios";
-                            //mTitle = "Hijo 1 Grupo 1";
+                            displayView(1);
                             break;
                         case 1:
                             Toast.makeText(getApplicationContext(), "Panel de Acceso", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Hijo 2 Grupo 1";
-                            //mTitle = "Hijo 2 Grupo 1";
+                            displayView(2);
                             break;
                         case 2:
                             Toast.makeText(getApplicationContext(), "Cobros", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Cobros";
-                            //mTitle = "Hijo 2 Grupo 1";
+                            displayView(3);
                             break;
                         default:
                             break;
@@ -177,7 +153,7 @@ public class MainApp extends ActionBarActivity {
                         case 0:
                             Toast.makeText(getApplicationContext(), "Movimientos", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Movimientos";
-                            //mTitle = "Hijo 1 Grupo 2";
+                            displayView(4);
                             break;
                         default:
                             break;
@@ -189,22 +165,22 @@ public class MainApp extends ActionBarActivity {
                         case 0:
                             Toast.makeText(getApplicationContext(), "Usuarios", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Usuarios";
-                            //mTitle = "Hijo 1 Grupo 1";
+                            displayView(5);
                             break;
                         case 1:
                             Toast.makeText(getApplicationContext(), "Actividades", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Actividades";
-                            //mTitle = "Hijo 2 Grupo 1";
+                            displayView(6);
                             break;
                         case 2:
                             Toast.makeText(getApplicationContext(), "Conceptos", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Conceptos";
-                            //mTitle = "Hijo 2 Grupo 1";
+                            displayView(7);
                             break;
                         case 3:
                             Toast.makeText(getApplicationContext(), "Articulos", Toast.LENGTH_SHORT).show();
                             mDrawerTitle = "Articulos";
-                            //mTitle = "Hijo 2 Grupo 1";
+                            displayView(8);
                             break;
                         default:
                             break;
@@ -261,15 +237,30 @@ public class MainApp extends ActionBarActivity {
             case 0:
                 fragment = new Fm_Inicio();
                 mDrawerTitle = "Grupo 1";
-                //mTitle = "Hijo 1 Grupo 1";
                 break;
             case 1:
-                fragment = new Fm_Inicio();
+                //fragment = new Fm_socios();
                 break;
             case 2:
-                fragment = new Fm_Inicio();
+                //fragment = new Fm_panel_acceso();
                 break;
-
+            case 3:
+                //fragment = new Fm_cobros();
+                break;
+            case 4:
+                fragment = new Fm_movimientos();
+                break;
+            case 5:
+                //fragment = new Fm_usuarios();
+                break;
+            case 6:
+                //fragment = new Fm_actividades();
+                break;
+            case 7:
+                //fragment = new Fm_conceptos();
+                break;
+            case 8:
+                //fragment = new articulos();
             default:
                 break;
         }
