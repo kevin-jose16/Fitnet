@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:text="Agregar Movimiento"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:hint="Concepto"
+            android:inputType="textMultiLine" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/spinnerconcepto"
+            android:ems="10"
+            android:textSize="40dp"
+            android:hint="Seleccionar Concepto"
+            android:spinnerMode="dialog"
+            />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:hint="Tipo de Movimiento"
+            android:inputType="textMultiLine" />
+        <Spinner
+            android:layout_gravity="clip_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/spinnertipomov"
+            android:ems="10"
+            android:textSize="40dp"
+            android:entries="@array/tipos_mov"
+            android:hint="Seleccionar tipo de movimiento"
+            android:gravity="center"
+            android:spinnerMode="dialog"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/desc_movimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Descripcion"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/importe_mov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Importe (pesos uruguayos)"
+        android:inputType="textPersonName" />
+
+
+    <Button
+        android:id="@+id/Agregar_Mov"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Agregar"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="2dp"
+        android:textSize="20dp"
+        android:visibility="visible"
+         />
+
+</LinearLayout>

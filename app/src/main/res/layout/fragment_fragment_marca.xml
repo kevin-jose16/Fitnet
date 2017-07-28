@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.olave.laboratorioandroid.FragmentMarca">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="casual"
+        android:text="@string/hello_blank_fragment"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Tabla de marcas" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:layout_marginTop="43dp"
+        android:background="?attr/colorControlHighlight" />
+
+</FrameLayout>

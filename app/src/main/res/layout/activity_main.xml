@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:id="@+id/activity_main"
     android:layout_height="match_parent"
     tools:context=".MainApp">
 
@@ -33,7 +34,8 @@
             android:dividerHeight="0.5dp"
             android:listSelector="@drawable/list_selector"
             android:background="#2f4050"
-            />
+            >
+            </ExpandableListView>
 
     </android.support.v4.widget.DrawerLayout>
 

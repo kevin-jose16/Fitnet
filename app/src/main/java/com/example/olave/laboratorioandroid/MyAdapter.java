@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,6 +62,7 @@ public class MyAdapter extends BaseExpandableListAdapter{
         return true;
     }
 
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -82,7 +84,6 @@ public class MyAdapter extends BaseExpandableListAdapter{
         }
 
         TextView b = (TextView) convertView.findViewById(R.id.text1);
-
         int valor = 0;
         valor = this._datosGrupos.get(this._grupos.get(groupPosition)).size();//Asignamos el nº de elementos que hay en cada grupo
         b.setTypeface(null, Typeface.BOLD);

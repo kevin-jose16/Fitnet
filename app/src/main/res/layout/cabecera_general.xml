@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/header_profile"
-    >
+    android:orientation="vertical"
+    android:weightSum="5">
 
-    <com.example.olave.laboratorioandroid.ImagenRedonda
-        android:id = "@+id/img_perfil"
-        android:layout_width = "60dp"
-        android:layout_height = "60dp"
-        android:src="@drawable/facebook"
-        android:layout_margin="5dp"
-        android:layout_gravity="center_vertical"
-        />
-
-
-    <TextView
-        android:id="@+id/admin_name"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_gravity="center_vertical"
-        android:alpha="0.87"
-        android:drawablePadding="16dp"
-        android:gravity="center_vertical"
-        android:text="Kevin Jose"
-        android:textColor="#a7b1c2"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:layout_weight="1.75">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <com.example.olave.laboratorioandroid.ImagenRedonda
+            android:id="@+id/img_perfil"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+         />
+
+        <TextView
+            android:id="@+id/admin_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_marginTop="0dp"
+            android:alpha="0.87"
+            android:drawablePadding="16dp"
+
+            android:text="Kevin Jose"
+            android:textColor="#a7b1c2"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.75">
+
+    </FrameLayout>
 
 
 </LinearLayout>

@@ -4,11 +4,16 @@ import android.annotation.TargetApi;
 import android.app.ExpandableListActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -25,8 +30,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,14 +80,49 @@ public class MainApp extends ActionBarActivity {
         mDrawerExpandableList.setGroupIndicator(null);//Indicador flecha desplegable izquierda oculta
 
         //A continuación añadimos cabecera general...
+
         View header = getLayoutInflater().inflate(R.layout.cabecera_general, null);
         mDrawerExpandableList.addHeaderView(header, null, false);
+        TextView nomUser = (TextView) findViewById(R.id.admin_name);
+        SharedPreferences sp = getSharedPreferences("sesion",Context.MODE_PRIVATE);
+        nomUser.setText(sp.getString("nombre",null));
+        String img = sp.getString("imagen",null);
+        new obtenerImagen().execute("http://fitnet.com.uy"+img);
+
         //...y pie de página
         View footer = getLayoutInflater().inflate(R.layout.pie_pagina, null);
         mDrawerExpandableList.addFooterView(footer, null, true);
 
-
         cargarDatos();
+        LinearLayout lylogout = (LinearLayout) findViewById(R.id.linearlogout);
+        lylogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences sharedPref = getSharedPreferences(
+                        "sesion", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.commit();
+                finish();
+                Intent i = new Intent(MainApp.this,Login.class);
+                startActivity(i);
+
+            }
+        });
+        LinearLayout lyhome = (LinearLayout) findViewById(R.id.linearhome);
+        lyhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayView(0);
+            }
+        });
+
+
+        /*ImageView image = (ImageView) findViewById(R.id.Logoutimg);
+        image.setImageResource(R.drawable.ic_logout);
+        TextView log = (TextView) findViewById(R.id.textlogout);
+        log.setText("Logout");*/
 
         if (toolbar != null) {
             toolbar.setTitle(mDrawerTitle);
@@ -94,7 +145,7 @@ public class MainApp extends ActionBarActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
 
-                getSupportActionBar().setTitle("");
+                getSupportActionBar().setTitle("Fitnet");
                 getSupportActionBar().setSubtitle("");
                 invalidateOptionsMenu();
 
@@ -136,7 +187,7 @@ public class MainApp extends ActionBarActivity {
                             break;
                         case 1:
                             Toast.makeText(getApplicationContext(), "Panel de Acceso", Toast.LENGTH_SHORT).show();
-                            mDrawerTitle = "Hijo 2 Grupo 1";
+                            mDrawerTitle = "Panel de acceso";
                             displayView(2);
                             break;
                         case 2:
@@ -235,32 +286,40 @@ public class MainApp extends ActionBarActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
+                setTitle("FITNET");
                 fragment = new Fm_Inicio();
-                mDrawerTitle = "Grupo 1";
                 break;
             case 1:
-                //fragment = new Fm_socios();
+                setTitle(datosGrupos.get(grupos.get(0)).get(0));
+                fragment = new FragmentSocio();
                 break;
             case 2:
-                //fragment = new Fm_panel_acceso();
+                setTitle(datosGrupos.get(grupos.get(0)).get(1));
+                fragment = new FragmentMarca();
                 break;
             case 3:
-                //fragment = new Fm_cobros();
+                setTitle(datosGrupos.get(grupos.get(0)).get(2));
+                //fragment = new Fm_Cobros();
                 break;
             case 4:
+                setTitle(datosGrupos.get(grupos.get(1)).get(0));
                 fragment = new Fm_movimientos();
                 break;
             case 5:
-                //fragment = new Fm_usuarios();
+                setTitle(datosGrupos.get(grupos.get(2)).get(0));
+                fragment = new Fm_usuarios();
                 break;
             case 6:
-                //fragment = new Fm_actividades();
+                setTitle(datosGrupos.get(grupos.get(2)).get(1));
+                fragment = new Fm_actividades();
                 break;
             case 7:
-                //fragment = new Fm_conceptos();
+                setTitle(datosGrupos.get(grupos.get(2)).get(2));
+                fragment = new Fm_conceptos();
                 break;
             case 8:
-                //fragment = new articulos();
+                setTitle(datosGrupos.get(grupos.get(2)).get(3));
+                fragment = new Fm_articulos();
             default:
                 break;
         }
@@ -270,12 +329,10 @@ public class MainApp extends ActionBarActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
 
-
             mDrawerExpandableList.setItemChecked(position, true);
             mDrawerExpandableList.setSelection(position);
-            setTitle(grupos.get(position));
             getSupportActionBar().setTitle(mDrawerTitle);
-            //getSupportActionBar().setSubtitle(mTitle);
+
             mDrawerLayout.closeDrawer(mDrawerExpandableList);
         } else {
             Log.e("Aviso", "Error cuando se crea el fragment");
@@ -336,4 +393,35 @@ public class MainApp extends ActionBarActivity {
             super.onBackPressed();
         }
     }
+
+
+    public class obtenerImagen extends AsyncTask<String,Void,Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap myBitmap=null;
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                myBitmap = BitmapFactory.decodeStream(input);
+
+            } catch (IOException e) {
+                //Excepcion al leer la imagen desde la url
+            }
+
+            return myBitmap;
+
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            ImagenRedonda imagen = (ImagenRedonda) findViewById(R.id.img_perfil);
+            imagen.setImageBitmap(result);
+        }
+
+    }
+
 }
